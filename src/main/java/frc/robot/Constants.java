@@ -34,6 +34,9 @@ public final class Constants {
   //Controller Constants
   public static final int CONTROLLER_PORT = 0;
   
+  //Pneumatics Constants
+  public static final int SOLENOID = 5;
+  
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }

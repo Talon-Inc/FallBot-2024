@@ -7,15 +7,20 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.shoot_cannon;
 import frc.robot.commands.Drive;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Pneumatics;
 
 import static frc.robot.Constants.CONTROLLER_PORT;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS5Controller;
+import edu.wpi.first.wpilibj.PS5Controller.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 
@@ -33,6 +38,8 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain m_drivetrain = new Drivetrain();
   private final Drive m_drive = new Drive(m_drivetrain, m_driverController);
+  private final Pneumatics m_Pneumatics = new Pneumatics();
+  private final shoot_cannon m_shoot = new shoot_cannon(m_Pneumatics);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //private final CommandPS5Controller m_driverController =
@@ -41,6 +48,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_driverController = new PS5Controller(CONTROLLER_PORT);
+    
     // Configure the trigger bindings
     configureBindings();
   }
@@ -59,6 +67,9 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
+    new JoystickButton(m_driverController, Button.kSquare.value)
+      .whileTrue(m_shoot);
+    
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
   }

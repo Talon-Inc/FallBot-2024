@@ -7,12 +7,12 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ForkliftDown;
+import frc.robot.commands.ForkliftUp;
 import frc.robot.commands.Drive;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
-
-import static frc.robot.Constants.CONTROLLER_PORT;
-
+import frc.robot.subsystems.Forklift;
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -32,7 +32,11 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain m_drivetrain = new Drivetrain();
+  private final Forklift m_forklift = new Forklift();
+
   private final Drive m_drive = new Drive(m_drivetrain, m_driverController);
+  private final ForkliftUp m_ForkliftUp = new ForkliftUp(m_forklift);
+  private final ForkliftDown m_ForkliftDown = new ForkliftDown(m_forklift);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //private final CommandPS5Controller m_driverController =
@@ -40,7 +44,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    m_driverController = new PS5Controller(CONTROLLER_PORT);
+    m_driverController = new PS5Controller(OperatorConstants.kDriverControllerPort);
     // Configure the trigger bindings
     configureBindings();
   }

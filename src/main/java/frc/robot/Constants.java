@@ -30,10 +30,9 @@ public final class Constants {
   public static double DRIVE_FACTOR = .5; // changed for turbo
   public static double TURN_FACTOR = .5;
   public static int DRIVE_REVERSE = 1; // Default drive; 1 = Front is panel, -1 = Front is intake
-
-  //Controller Constants
-  public static final int CONTROLLER_PORT = 0;
   
+  public static int kForkliftMotor = 5;
+
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
